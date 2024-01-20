@@ -12,14 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "PRODUCT_TBL")
+@Table(name = "USER_TABLE")
 
-public class Product {
-
+public class User {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
+
     private String name;
-    private int quantity;
-    private double price;
+    private String username;
+    private String email;
+    private String password;
 }

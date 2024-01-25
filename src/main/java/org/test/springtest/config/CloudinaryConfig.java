@@ -1,6 +1,7 @@
 package org.test.springtest.config;
 
 import com.cloudinary.Cloudinary;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,9 +10,14 @@ import java.util.Map;
 
 @Configuration
 public class CloudinaryConfig {
-    private final String CLOUD_NAME = "dtsaa1lyg";
-    private final String API_KEY = "586722291891852";
-    private final String API_SECRET="SDk87pXrxDKsrbIjijgNk6NsLMk";
+    @Value("${CLOUD_NAME}")
+    private String CLOUD_NAME;
+
+    @Value("${API_KEY}")
+    private String API_KEY;
+
+    @Value("${API_SECRET}")
+    private String API_SECRET;
 
     @Bean
     public Cloudinary cloudinary() {

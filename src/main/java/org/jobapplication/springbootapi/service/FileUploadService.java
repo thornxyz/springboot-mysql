@@ -1,12 +1,12 @@
-package org.test.springtest.service;
+package org.jobapplication.springbootapi.service;
 
 import com.cloudinary.Cloudinary;
 import lombok.RequiredArgsConstructor;
+import org.jobapplication.springbootapi.entity.UserInfo;
+import org.jobapplication.springbootapi.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.test.springtest.entity.Files;
-import org.test.springtest.repository.FileRepository;
 
 import java.io.IOException;
 import java.util.Map;
@@ -14,16 +14,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class FileUploadImpl implements FileUpload {
+public class FileUploadService {
     private final Cloudinary cloudinary;
-    private final String cloudinaryFolder = "pdfs";
 
     @Autowired
-    private FileRepository fileRepository;
-
-    @Override
-    public String uploadFile(MultipartFile multipartFile) throws IOException {
+    private UserInfoRepository userInfoRepository;
+    public String uploadFile(MultipartFile multipartFile, Long id) throws IOException {
         try {
+            String cloudinaryFolder = "pdfs";
             Map<?, ?> result = cloudinary.uploader()
                     .upload(multipartFile.getBytes(),
                             Map.of("public_id", UUID.randomUUID().toString(),
@@ -31,7 +29,7 @@ public class FileUploadImpl implements FileUpload {
 
             String fileUrl = result.get("url").toString();
 
-            saveUrlToDatabase(fileUrl);
+            saveUrlToDatabase(fileUrl, id);
 
             return fileUrl;
         } catch (IOException e) {
@@ -39,9 +37,14 @@ public class FileUploadImpl implements FileUpload {
         }
     }
 
-    private void saveUrlToDatabase(String fileUrl) {
-        Files file = new Files();
-        file.setFileUrl(fileUrl);
-        fileRepository.save(file);
+    private void saveUrlToDatabase(String fileUrl, Long id) {
+        UserInfo userInfo = userInfoRepository.findById(id).orElse(null);
+        if(userInfo!=null) {
+            userInfo.setResumeUrl(fileUrl);
+            userInfoRepository.save(userInfo);
+        } else {
+            throw new RuntimeException("User not found with ID: " + id);
+        }
     }
+
 }

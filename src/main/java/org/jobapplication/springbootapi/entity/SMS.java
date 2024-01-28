@@ -1,4 +1,4 @@
-package org.test.springtest.entity;
+package org.jobapplication.springbootapi.entity;
 
 import lombok.Data;
 

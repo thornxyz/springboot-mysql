@@ -1,13 +1,12 @@
-package org.test.springtest.controller;
+package org.jobapplication.springbootapi.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.test.springtest.entity.SMS;
-import org.test.springtest.service.TwilioTest;
+import org.jobapplication.springbootapi.entity.SMS;
+import org.jobapplication.springbootapi.service.TwilioTest;
 
 @RestController
-@RequestMapping("api/v1")
 @Slf4j
 public class TwilioController {
 

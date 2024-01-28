@@ -1,4 +1,4 @@
-package org.test.springtest.service;
+package org.jobapplication.springbootapi.service;
 
 
 import com.twilio.Twilio;
@@ -21,12 +21,9 @@ public class TwilioTest{
     @Value("${twiliophoneNumber}")
     String OUTGOING_SMS_NUMBER ;
 
-
     @PostConstruct
     private void setup(){
         Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
-
-
     }
     public String sendSMS(String smsNumber, String smsMessage){
         Message  message= Message.creator(

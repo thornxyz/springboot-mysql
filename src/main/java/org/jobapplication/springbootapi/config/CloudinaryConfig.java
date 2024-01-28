@@ -1,4 +1,4 @@
-package org.test.springtest.config;
+package org.jobapplication.springbootapi.config;
 
 import com.cloudinary.Cloudinary;
 import org.springframework.beans.factory.annotation.Value;

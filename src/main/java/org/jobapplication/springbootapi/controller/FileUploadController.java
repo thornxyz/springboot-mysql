@@ -15,10 +15,11 @@ public class FileUploadController {
     @Autowired
     private FileUploadService fileUploadService;
 
-    @PostMapping("/upload/{id}")
-    public ResponseEntity<String> uploadFile(@RequestPart MultipartFile file, @PathVariable Long id) {
+    @PostMapping("/upload/{email}")
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<String> uploadFile(@RequestPart MultipartFile file, @PathVariable String email) {
         try {
-            String fileUrl = fileUploadService.uploadFile(file, id);
+            String fileUrl = fileUploadService.uploadFile(file, email);
             return new ResponseEntity<>(fileUrl, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>("Error uploading file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

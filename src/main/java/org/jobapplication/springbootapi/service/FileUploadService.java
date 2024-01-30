@@ -19,7 +19,7 @@ public class FileUploadService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
-    public String uploadFile(MultipartFile multipartFile, Long id) throws IOException {
+    public String uploadFile(MultipartFile multipartFile, String email) throws IOException {
         try {
             String cloudinaryFolder = "pdfs";
             Map<?, ?> result = cloudinary.uploader()
@@ -29,7 +29,7 @@ public class FileUploadService {
 
             String fileUrl = result.get("url").toString();
 
-            saveUrlToDatabase(fileUrl, id);
+            saveUrlToDatabase(fileUrl, email);
 
             return fileUrl;
         } catch (IOException e) {
@@ -37,13 +37,13 @@ public class FileUploadService {
         }
     }
 
-    private void saveUrlToDatabase(String fileUrl, Long id) {
-        UserInfo userInfo = userInfoRepository.findById(id).orElse(null);
+    private void saveUrlToDatabase(String fileUrl, String email) {
+        UserInfo userInfo = userInfoRepository.findByEmail(email);
         if(userInfo!=null) {
             userInfo.setResumeUrl(fileUrl);
             userInfoRepository.save(userInfo);
         } else {
-            throw new RuntimeException("User not found with ID: " + id);
+            throw new RuntimeException("User not found with email: " + email);
         }
     }
 

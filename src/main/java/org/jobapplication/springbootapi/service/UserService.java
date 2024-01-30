@@ -12,10 +12,9 @@ public class UserService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    public UserInfo registerUser(String email, String name) {
+    public UserInfo registerUser(String email) {
         UserInfo userInfo = new UserInfo();
         userInfo.setEmail(email);
-        userInfo.setName(name);
         return userInfoRepository.save(userInfo);
     }
 

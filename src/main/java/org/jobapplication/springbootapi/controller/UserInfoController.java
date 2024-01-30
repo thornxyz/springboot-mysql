@@ -19,12 +19,12 @@ public class UserInfoController {
     @Data
     static class UserInfoRequest {
         private String email;
-        private String name;
     }
 
     @PostMapping("/register")
+    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<UserInfo> registerUser(@RequestBody UserInfoRequest request) {
-        UserInfo newUser = userService.registerUser(request.getEmail(), request.getName());
+        UserInfo newUser = userService.registerUser(request.getEmail());
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 

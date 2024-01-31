@@ -22,7 +22,7 @@ public class UserInfo {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dob;
     private String gender;
-    private Long phone;
+    private String phone;
 
     private double tenthBoardPercent;
     private double twelfthBoardPercent;

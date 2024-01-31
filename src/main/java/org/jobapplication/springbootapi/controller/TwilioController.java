@@ -14,6 +14,7 @@ public class TwilioController {
     TwilioTest smsService;
 
     @PostMapping("/processSMS")
+    @CrossOrigin(origins = "http://localhost:5173")
     public String processSMS(@RequestBody SMS sendRequest) {
         log.info("processSMS started sendRequest: "+sendRequest.toString()
 

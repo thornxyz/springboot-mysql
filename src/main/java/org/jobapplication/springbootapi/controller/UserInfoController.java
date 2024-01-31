@@ -34,4 +34,10 @@ public class UserInfoController {
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
 
+    @GetMapping("/getUserInfo/{email}")
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<UserInfo> getUserInfo(@PathVariable String email) {
+        return new ResponseEntity<>(userService.getUserInfo(email), HttpStatus.OK);
+    }
+
 }

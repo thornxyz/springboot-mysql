@@ -14,7 +14,7 @@ public class DetailsUploadService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    public UserInfo addDetails(String name, Date dob, String gender, Long phone, double tenthBoardPercent, double twelfthBoardPercent, double collegeCgpa, String collegeName, String email) {
+    public UserInfo addDetails(String name, Date dob, String gender, String phone, double tenthBoardPercent, double twelfthBoardPercent, double collegeCgpa, String collegeName, String email) {
         UserInfo userInfo = userInfoRepository.findByEmail(email);
         if(userInfo!=null) {
             userInfo.setName(name);

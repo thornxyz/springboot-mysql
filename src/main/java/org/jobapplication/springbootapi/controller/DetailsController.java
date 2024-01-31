@@ -21,7 +21,7 @@ public class DetailsController {
         private String name;
         private Date dob;
         private String gender;
-        private Long phone;
+        private String phone;
         private double tenthBoardPercent;
         private double twelfthBoardPercent;
         private double collegeCgpa;

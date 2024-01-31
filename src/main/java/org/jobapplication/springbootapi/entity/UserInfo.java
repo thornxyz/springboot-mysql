@@ -24,9 +24,9 @@ public class UserInfo {
     private String gender;
     private String phone;
 
-    private double tenthBoardPercent;
-    private double twelfthBoardPercent;
-    private double collegeCgpa;
+    private Double tenthBoardPercent;
+    private Double twelfthBoardPercent;
+    private Double collegeCgpa;
     private String collegeName;
 
     private String resumeUrl;

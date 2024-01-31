@@ -1,0 +1,218 @@
+openapi: 3.0.1
+info:
+  title: product api
+  description: product microservice
+  version: "2.0"
+servers:
+- url: http://localhost:9191
+  description: Generated server url
+paths:
+  /user/upload/{email}:
+    post:
+      tags:
+      - file-upload-controller
+      operationId: uploadFile
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /user/register:
+    post:
+      tags:
+      - user-info-controller
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInfoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+  /user/addDetails/{email}:
+    post:
+      tags:
+      - details-controller
+      operationId: addDetails
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Details'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /processSMS:
+    post:
+      tags:
+      - twilio-controller
+      operationId: processSMS
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMS'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /user/getUserInfo/{email}:
+    get:
+      tags:
+      - user-info-controller
+      operationId: getUserInfo
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+  /user/getAll:
+    get:
+      tags:
+      - user-info-controller
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserInfo'
+  /ping:
+    get:
+      tags:
+      - hello-controller
+      operationId: getPing
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /:
+    get:
+      tags:
+      - hello-controller
+      operationId: getHello
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    UserInfoRequest:
+      type: object
+      properties:
+        email:
+          type: string
+    UserInfo:
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        dob:
+          type: string
+          format: date-time
+        gender:
+          type: string
+        phone:
+          type: string
+        tenthBoardPercent:
+          type: number
+          format: double
+        twelfthBoardPercent:
+          type: number
+          format: double
+        collegeCgpa:
+          type: number
+          format: double
+        collegeName:
+          type: string
+        resumeUrl:
+          type: string
+    Details:
+      type: object
+      properties:
+        name:
+          type: string
+        dob:
+          type: string
+          format: date-time
+        gender:
+          type: string
+        phone:
+          type: string
+        tenthBoardPercent:
+          type: number
+          format: double
+        twelfthBoardPercent:
+          type: number
+          format: double
+        collegeCgpa:
+          type: number
+          format: double
+        collegeName:
+          type: string
+    SMS:
+      type: object
+      properties:
+        destinationSMSNumber:
+          type: string
+        smsMessage:
+          type: string
